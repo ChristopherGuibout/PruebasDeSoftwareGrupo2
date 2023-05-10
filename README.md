@@ -1,7 +1,7 @@
 # PruebasDeSoftwareGrupo2
 # Integrantes:
 * Maximiliano Abarca
-* Martin Abbot
+* Martin Abbott
 * Christopher Guibout
 * Ignacio Reveco
 
