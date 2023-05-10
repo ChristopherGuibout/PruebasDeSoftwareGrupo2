@@ -13,45 +13,91 @@ app.listen(3000, function(){
 });
 
 
-// Fetch all books
+app.get('/', (req, res) => {
+  res.render('home');
+});
+
+
+
 app.get('/books', (req, res) => {
     Book.findAll().then(books => res.render('index', {books: books}));
   });
   
 
-// Fetch single book
 app.get('/books/:id', (req, res) => {
-    Book.findByPk(req.params.id).then(book => res.json(book));
+
+  const id = req.params.id;
+
+  if (!id) {
+    console.log("id vacia")
+    res.redirect('/');
+    return;
+  }
+
+
+  Book.findOne({ where: { isbn: req.params.id } })
+    .then(book => {
+      if (book) {
+        
+        res.render('indexsearch', {book: book});
+      } else {
+        res.redirect('/');
+      }
+    })
+    .catch(error => {
+      console.error(error);
+      res.status(500).send('An error occurred');
+    });
 });
 
-// Create new book
+
 app.post('/books', (req, res) => {
     Book.create({
     title: req.body.title,
     author: req.body.author,
     isbn: req.body.isbn,
     published_date: req.body.published_date,
-    // other fields...
-    }).then(book => res.json(book));
+    }).then(book => res.render('home', {book: book}));
 });
 
-// Update a book
-app.put('/books/:id', (req, res) => {
-    Book.findByPk(req.params.id).then(book => {
-    book.update({
-        title: req.body.title,
-        author: req.body.author,
-        isbn: req.body.isbn,
-        published_date: req.body.published_date,
-        // other fields...
-    }).then(book => res.json(book));
+app.post('/books/:id', (req, res) => {
+  const { title, author, published_date} = req.body;
+  const isbn = req.params.id;
+
+  Book.findOne({ where: { isbn: isbn } })
+    .then(book => {
+      if (!book) {
+        res.status(404).send('Book not found');
+      } else {
+        book.update({
+          title: title,
+          author: author,
+          published_date: published_date,
+        }).then(res.redirect('/books/'));
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).send('Internal server error');
     });
 });
 
-// Delete a book
-app.delete('/books/:id', (req, res) => {
-    Book.findByPk(req.params.id).then(book => {
-    book.destroy().then(() => res.json({status: "Book deleted successfully!"}));
+
+//Se podria arreglar esto si, que nos dio progeria xdddd
+app.get('/booksdelete/:id', (req, res) => {
+  const isbn = req.params.id;
+
+  Book.findOne({ where: { isbn: isbn } })
+    .then(book => {
+      if (!book) {
+        res.status(404).send('Book not found');
+      } else {
+        book.destroy().then(() => {res.redirect('/books/')});
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).send('Internal server error');
     });
 });
 

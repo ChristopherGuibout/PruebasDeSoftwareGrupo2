@@ -1,14 +1,73 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Library</title>
+    <title>Libros disponibles :</title>
 </head>
 <body>
+    <title> Crear nuevo libro </title>
+    <form action="/books" method="post">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title"><br>
+      
+        <label for="author">Author:</label>
+        <input type="text" id="author" name="author"><br>
+      
+        <label for="isbn">ISBN:</label>
+        <input type="text" id="isbn" name="isbn"><br>
+      
+        <label for="published_date">Published Date:</label>
+        <input type="date" id="published_date" name="published_date"><br>
+      
+        <!-- add other fields here -->
+      
+        <input type="submit" value="Submit">
+      </form>
+      
+      
+      
+
     <h1>Books</h1>
     <% books.forEach(book => { %>
         <h2><%= book.title %></h2>
         <p><%= book.author %></p>
+        <p><%= book.isbn %></p>
         <!-- Other details... -->
+
+        <form action="/books/<%= book.isbn %>" method="POST">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" value="<%= book.title %>"><br>
+          
+            <label for="author">Author:</label>
+            <input type="text" id="author" name="author" value="<%= book.author %>"><br>
+          
+            <label for="isbn">ISBN:</label>
+            <input type="text" id="isbn" name="isbn" value="<%= book.isbn %>" readonly><br>
+          
+
+          
+            <!-- add other fields here -->
+          
+            <input type="submit" value="Update">
+          </form>
+
+          <a href="/booksdelete/<%= book.isbn %>">Borrar</a>
+
+
+          
+
+        
+          
+          
     <% }) %>
+
+
+    
+
+    <a href="/">Volver</a>
 </body>
 </html>
+
+
+
+
+  

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+
+    <form id="bookForm">
+        <input type="text" id="bookId" placeholder="Enter Book ID">
+        <button type="submit">Go to Book</button>
+    </form>
+
+    <a href="/books">Ver libros disponibles</a>
+
+
+
+    
+    
+</html>
+
+<script>
+    document.getElementById('bookForm').addEventListener('submit', function(event) {
+      // Prevent the form from submitting normally
+      event.preventDefault();
+    
+      // Get the book ID from the input field
+      var bookId = document.getElementById('bookId').value;
+
+      if (bookId){
+        window.location.href = "/books/" + bookId;
+      }
+
+      else{
+        window.location.href = "/";
+      }
+    
+      // Redirect to the book URL
+      
+    });
+    </script>
+    
+
+    
