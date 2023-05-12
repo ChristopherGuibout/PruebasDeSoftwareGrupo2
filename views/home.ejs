@@ -1,40 +1,101 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Finder</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
 
-    <form id="bookForm">
-        <input type="text" id="bookId" placeholder="Enter Book ID">
-        <button type="submit">Go to Book</button>
-    </form>
+        .container {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
 
-    <a href="/books">Ver libros disponibles</a>
+        #bookForm {
+            margin-bottom: 1rem;
+        }
 
+        #bookId {
+            padding: 0.5rem;
+            font-size: 1rem;
+            width: 100%;
+            margin-bottom: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            outline: none;
+        }
 
+        #bookId:focus {
+            border-color: #0099ff;
+        }
 
-    
-    
-</html>
+        button {
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            background-color: #0099ff;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
 
-<script>
-    document.getElementById('bookForm').addEventListener('submit', function(event) {
-      // Prevent the form from submitting normally
-      event.preventDefault();
-    
-      // Get the book ID from the input field
-      var bookId = document.getElementById('bookId').value;
+        button:hover {
+            background-color: #007acc;
+        }
 
-      if (bookId){
-        window.location.href = "/books/" + bookId;
-      }
+        a {
+            text-decoration: none;
+            color: #0099ff;
+            font-size: 0.9rem;
+        }
 
-      else{
-        window.location.href = "/";
-      }
-    
-      // Redirect to the book URL
-      
-    });
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form id="bookForm">
+            <input type="text" id="bookId" placeholder="Ingresar ID de libro">
+            <button type="submit">Buscar Libro</button>
+        </form>
+
+        <a href="/books">Ver libros disponibles</a>
+    </div>
+
+    <script>
+        document.getElementById('bookForm').addEventListener('submit', function(event) {
+            // Prevent the form from submitting normally
+            event.preventDefault();
+
+            // Get the book ID from the input field
+            var bookId = document.getElementById('bookId').value;
+
+            if (bookId) {
+                window.location.href = "/books/" + bookId;
+            } else {
+                window.location.href = "/";
+            }
+
+            // Redirect to the book URL
+        });
     </script>
-    
+</body>
 
-    
+</html>

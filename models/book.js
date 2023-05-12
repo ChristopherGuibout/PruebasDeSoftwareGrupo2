@@ -9,19 +9,27 @@ Book.init({
     type: DataTypes.STRING,
     allowNull: false
   },
-  author: {
-    type: DataTypes.STRING
-    // allowNull defaults to true
+  state: {
+    type: DataTypes.STRING,
+    allowNull: false
   },
-  isbn: {
-    type: DataTypes.STRING
-    // allowNull defaults to true
+  avail : {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  author: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  id: {
+    type: Sequelize.INTEGER,
+    autoIncrement: true,
+    primaryKey: true
   },
   published_date: {
-    type: DataTypes.DATE
-    // allowNull defaults to true
+    type: DataTypes.DATE,
+    allowNull: false
   },
-  // Add other fields as necessary
 }, {
   sequelize, // passing the `sequelize` instance is required
   modelName: 'Book', // We need to choose the model name

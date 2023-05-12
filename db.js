@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize');
 
 // Option 1: Passing a connection URI
-const sequelize = new Sequelize('mysql://root:12345678@localhost:3306/library') // Example for mysql
+const sequelize = new Sequelize('mysql://root:57769937Ia@localhost:3306/biblioteca') // Example for mysql
 
 
 async function testConnection() {
