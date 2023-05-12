@@ -1,13 +1,64 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Tu Busqueda:</title>
-</head>
-<body>
-    <h1>Books</h1>
-    <h2> <%= book.title %></h2>
-    <h2> <%= book.author %></h2>
+<html lang="es">
 
-    <a href="/">Volver</a>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado:</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-bottom: 0.5rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        a {
+            text-decoration: none;
+            color: #0099ff;
+            font-size: 1rem;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Libro</h1>
+        <p><%= book.id %></p>
+        <h2><%= book.title %></h2>
+        <p><%= book.author %></p>
+        <p><%= book.state %></p>
+        <p><%= book.avail %></p>
+        <p><%= book.published_date %></p>
+
+        <a href="/">Volver</a>
+    </div>
 </body>
+
 </html>
