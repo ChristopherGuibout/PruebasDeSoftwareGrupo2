@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Libros disponibles:</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script>
+        let Books;
+        $(document).ready(function(){
+            $.get("/books/data", function(data, status){
+                console.log(data);
+                Books = data;
+            });
+        });
+    </script>
+    <style>
+        .book-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .book {
+          width: 400px;
+          height: 240px;
+          background-color: #f2f2f2;
+          border-radius: 5px;
+          padding: 14px;
+          box-sizing: border-box;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+    
+        .book h3 {
+          margin: 10px 0;
+          font-size: 18px;
+          text-align: center;
+        }
+        .book h2 {
+          margin: 10px 0;
+          font-size: 18px;
+          text-align: left;
+        }
+    
+        .book p {
+          font-size: 16px;
+          text-align: left;
+        }
+      </style>
+</head>
+<body>
+    <div class="book-container">
+        <h1>Libros</h1>
+        <% Books.forEach(book => { %>
+            <div class="book">
+                <p>Titulo: <%= book.title %></p>
+                <p>Autor: <%= book.author %></p>
+                <p>Estado: <%= book.state %></p>
+                <p>Disponibilidad: <%= book.avail %></p>
+                <p>Fecha de publicación: <%= book.published_date %></p>
+            </div>
+        <% }) %>
+        <a href="/">Volver</a>
+    </div>
+</body>
+</html>

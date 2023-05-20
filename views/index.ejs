@@ -3,82 +3,7 @@
 <head>
     <title>Libros disponibles:</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f8f9fa;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            width: 80%;
-            margin: auto;
-            padding-top: 2rem;
-        }
-
-        form {
-            background-color: #fff;
-            padding: 1rem;
-            border-radius: 5px;
-            margin-bottom: 2rem;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-
-        input[type="text"], input[type="date"] {
-            width: 100%;
-            padding: 0.5rem;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-            color: #333;
-        }
-
-        label {
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-
-        input[type="submit"] {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            padding: 0.5rem 1rem;
-            font-size: 0.9rem;
-            cursor: pointer;
-            margin-top: 1rem;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-
-        h1 {
-            color: #007bff;
-            font-weight: 500;
-        }
-
-        .book {
-            background-color: #fff;
-            padding: 1rem;
-            border-radius: 5px;
-            margin-bottom: 2rem;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-
-        a {
-            text-decoration: none;
-            color: #007bff;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script>
         let Books;
@@ -94,7 +19,7 @@
 <body>
     <div class="container">
         <h1>Crear nuevo libro</h1>
-        <form action="/books" method="post">
+        <form action="/books" method="POST">
             <label for="title">Título:</label>
             <input type="text" id="title" name="title"><br>
           
@@ -112,7 +37,7 @@
           
             <!-- add other fields here -->
           
-            <input type="submit" value="Crear">
+            <input class="button-18" type="submit" value="Crear">
           </form>
     
             <h1>Libros</h1>
@@ -125,9 +50,10 @@
                     <p><%= book.avail %></p>
                     <p><%= book.published_date %></p>
     
-                    <!-- Other details... -->
-    
-                    <form action="/books/<%= book.isbn %>" method="POST">
+                    <!-- PUT... -->
+                <body>
+                    <form action="/books/<%= book.id %>?_method=put" method="POST">
+                        
                         <label for="title">Título:</label>
                         <input type="text" id="title" name="title" value="<%= book.title %>"><br>
     
@@ -145,19 +71,15 @@
     
                         <!-- add other fields here -->
     
-                        <input type="submit" value="Actualizar">
+                        <input class="button-18" type="submit" value="Actualizar">
                     </form>
-    
-                    <a href="/booksdelete/<%= book.id %>">Borrar</a>
+                </body>
+                    <form action="/books/<%= book.id %>?_method=DELETE" method="POST">
+                        <button class='button-18' type="submit">Eliminar libro</button>
+                    </form>
                 </div>
             <% }) %>
             <a href="/">Volver</a>
         </div>
     </body>
     </html>
-    
-
-
-
-
-  
