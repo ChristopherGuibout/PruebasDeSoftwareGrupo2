@@ -9,16 +9,21 @@ function getHome(req, res) {
 async function getAllBooks(req, res) {
     try {
       const Books = await Book.findAll();
-      const userRole = req.user.role;
+      //const userRole = req.user.role;
+      res.status(200).json(Books);
+      /*
       if (userRole == 'funcionario'){
-        res.render('index', { Books });
+        //res.render('index', { Books });
+        res.status(200).json(Books);
       }
       else if (userRole == 'estudiante'){
-        res.render('index-student', { Books });
+        //res.render('index-student', { Books });
+        res.status(200).json(Books);
       }
       else{
         res.status(403).send('Acceso invalido');
       }
+      */
     } catch (error) {
       console.error(error);
       res.status(500).send('An error occurred');
@@ -42,9 +47,11 @@ async function getBookById(req, res) {
     const { id } = req.params;
     const book = await Book.findOne({ where: { id } });
     if (book) {
-      res.render('indexsearch', { book });
+      //res.render('indexsearch', { book });
+      res.status(200).json(book);
     } else {
-      res.redirect('/');
+      //res.redirect('/index');
+      res.status(400);
     }
   } catch (error) {
     console.error(error);
@@ -57,10 +64,12 @@ async function createBook(req, res) {
   try {
     const { title, author, published_date, state, avail } = req.body;
     const book = await Book.create({ title, author, published_date, state, avail });
-    res.render('home', { book });
+    //res.render('home', { book });
+    res.status(200).json(book);
   } catch (error) {
     console.error(error);
     res.status(500).send('An error occurred');
+    res.redirect('/index');
   }
 }
 
@@ -107,7 +116,9 @@ async function updateBook(req, res) {
     book.avail = avail;
 
     await book.save();
-    res.render('home', { book });
+    //res.render('home', { book });
+
+    res.status(200).json(book);
 
   } catch (error) {
     console.error(error);
@@ -127,7 +138,8 @@ async function deleteBook(req, res) {
     }
 
     await book.destroy();
-    res.render('home', { book });
+    //res.render('home', { book });
+    res.status(200).json(book);
   } catch (error) {
     console.error(error);
     res.status(500).send('An error occurred');
