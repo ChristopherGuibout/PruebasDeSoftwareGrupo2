@@ -6,23 +6,31 @@ var User = models.User;
 // Controlador para el registro de un nuevo usuario
 async function registerUser(req, res) {
     try {
-      const { name, password, email } = req.body;
+      var { name, password, email,role } = req.body;
+
+      if (email == undefined){
+        return res.status(401).json({error:"Ingrese un correo"})
+      }
   
       // Verificar si el usuario ya existe en la base de datos
-      const existingUser = await User.findOne({ where: { name } });
+      const existingUser = await User.findOne({ where: { email } });
       if (existingUser) {
         return res.render('register', { error: 'El nombre de usuario ya está en uso' });
+        //return res.status(401).json({error: "un usuario ya se ha registrado con ese correo"})
       }
   
       // Generar el hash de la contraseña antes de almacenarla en la base de datos
       const hashedPassword = await bcrypt.hash(password, 10);
   
       // Crear el nuevo usuario en la base de datos
+      if (role == undefined){
+        role = 'estudiante'
+      }
       const newUser = await User.create({
         name,
         password: hashedPassword,
         email,
-        role: 'estudiante',
+        role,
       });
   
       //res.status(201).json(newUser);
@@ -32,6 +40,7 @@ async function registerUser(req, res) {
       console.error(error);
       console.log("Error")
       res.render('register', { error: 'Ha ocurrido un error en el servidor' });
+      //res.status(400).json({error: 'Hubo un error en el servidor'})
     }
   }
 
@@ -39,6 +48,9 @@ async function registerUser(req, res) {
 async function loginUser(req, res) {
   try {
     const { email, password } = req.body;
+    if (email == undefined){
+      return res.status(400).json({ error: "error brigido"})
+    }
 
     // Buscar al usuario en la base de datos
     const user = await User.findOne({ where: { email } });
@@ -57,6 +69,7 @@ async function loginUser(req, res) {
     res.cookie('token', token, { httpOnly: true })
 
     res.render('home');
+    //res.status(200).json({ error: 'Te logueaste' });
 
   } catch (error) {
     console.error(error);
