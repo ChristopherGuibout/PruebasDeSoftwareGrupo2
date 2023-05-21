@@ -1,14 +1,85 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Library</title>
+    <title>Libros disponibles:</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script>
+        let Books;
+        $(document).ready(function(){
+            $.get("/books/data", function(data, status){
+                console.log(data);
+                Books = data;
+                // Now you can use the data object in your client-side script
+            });
+        });
+    </script>
 </head>
 <body>
-    <h1>Books</h1>
-    <% books.forEach(book => { %>
-        <h2><%= book.title %></h2>
-        <p><%= book.author %></p>
-        <!-- Other details... -->
-    <% }) %>
-</body>
-</html>
+    <div class="container">
+        <h1>Crear nuevo libro</h1>
+        <form action="/books" method="POST">
+            <label for="title">Título:</label>
+            <input type="text" id="title" name="title"><br>
+          
+            <label for="author">Autor/a:</label>
+            <input type="text" id="author" name="author"><br>
+    
+            <label for="author">Estado:</label>
+            <input type="text" id="state" name="state"><br>
+    
+            <label for="author">Disponibilidad:</label>
+            <input type="text" id="avail" name="avail"><br>
+          
+            <label for="published_date">Fecha de Publicación:</label>
+            <input type="date" id="published_date" name="published_date"><br>
+          
+            <!-- add other fields here -->
+          
+            <input class="button-18" type="submit" value="Crear">
+          </form>
+    
+            <h1>Libros</h1>
+            <% Books.forEach(book => { %>
+                <div class="book">
+                    <p><%= book.id %></p>
+                    <h2><%= book.title %></h2>
+                    <p><%= book.author %></p>
+                    <p><%= book.state %></p>
+                    <p><%= book.avail %></p>
+                    <p><%= book.published_date %></p>
+    
+                    <!-- PUT... -->
+                <body>
+                    <form action="/books/<%= book.id %>?_method=put" method="POST">
+                        
+                        <label for="title">Título:</label>
+                        <input type="text" id="title" name="title" value="<%= book.title %>"><br>
+    
+                        <label for="author">Autor/a:</label>
+                        <input type="text" id="author" name="author" value="<%= book.author %>"><br>
+
+                        <label for="published_date">Fecha de Publicación:</label>
+                        <input type="date" id="published_date" name="published_date"><br>
+    
+                        <label for="state">Estado:</label>
+                        <input type="text" id="state" name="state" value="<%= book.state %>"><br>
+    
+                        <label for="avail">Disponibilidad:</label>
+                        <input type="text" id="avail" name="avail" value="<%= book.avail %>"><br>
+    
+                        <!-- add other fields here -->
+    
+                        <input class="button-18" type="submit" value="Actualizar">
+                    </form>
+                </body>
+                    <form action="/books/<%= book.id %>?_method=DELETE" method="POST">
+                        <button class='button-18' type="submit">Eliminar libro</button>
+                    </form>
+                </div>
+            <% }) %>
+            <a href="/index">Volver</a>
+        </div>
+    </body>
+    </html>
