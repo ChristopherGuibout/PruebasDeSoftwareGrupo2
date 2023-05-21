@@ -15,8 +15,8 @@ async function registerUser(req, res) {
       // Verificar si el usuario ya existe en la base de datos
       const existingUser = await User.findOne({ where: { email } });
       if (existingUser) {
-        //return res.render('register', { error: 'El nombre de usuario ya está en uso' });
-        return res.status(401).json({error: "un usuario ya se ha registrado con ese correo"})
+        return res.render('register', { error: 'El nombre de usuario ya está en uso' });
+        //return res.status(401).json({error: "un usuario ya se ha registrado con ese correo"})
       }
   
       // Generar el hash de la contraseña antes de almacenarla en la base de datos
@@ -33,14 +33,14 @@ async function registerUser(req, res) {
         role,
       });
   
-      res.status(201).json(newUser);
-      //res.render('login', {error: 'Usuario registrado correctamente'});
+      //res.status(201).json(newUser);
+      res.render('login', {error: 'Usuario registrado correctamente'});
 
     } catch (error) {
       console.error(error);
       console.log("Error")
-      //res.render('register', { error: 'Ha ocurrido un error en el servidor' });
-      res.status(400).json({error: 'Hubo un error en el servidor'})
+      res.render('register', { error: 'Ha ocurrido un error en el servidor' });
+      //res.status(400).json({error: 'Hubo un error en el servidor'})
     }
   }
 
@@ -68,8 +68,8 @@ async function loginUser(req, res) {
     const token = jwt.sign({ name: user.name, role: user.role }, 'secretKey');
     res.cookie('token', token, { httpOnly: true })
 
-    //res.render('home');
-    res.status(200).json({ error: 'Te logueaste' });
+    res.render('home');
+    //res.status(200).json({ error: 'Te logueaste' });
 
   } catch (error) {
     console.error(error);

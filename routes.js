@@ -14,7 +14,7 @@ if(process.env.NODE_ENV !== 'test') {
   router.get('/index',authMiddleware.verifyToken, bookController.getHome);
   //router.get('/books/data', authMiddleware.verifyToken, bookController.getBooksData);
 
-  router.get('/books',bookController.getAllBooks);
+  router.get('/books',authMiddleware.verifyToken, bookController.getAllBooks);
 
   router.get('/books/:id', bookController.getBookById);
   router.post('/books', authMiddleware.verifyToken, authMiddleware.requireRole('funcionario'), bookController.createBook);
